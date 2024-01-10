@@ -6,7 +6,10 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Interfaces/OnlineSessionInterface.h"
 
+
 #include "MultiplayerSessionsSubsystem.generated.h"
+
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiplayerOnCreateSessionComplete, bool, bWasSuccessful);
 
 /**
  * 
@@ -26,6 +29,8 @@ public:
 	void DestroySession();
 	void StartSession();
 
+	//FMultiplayerOnCreateSessionComplete MultiplayerOnCreateSessionComplete; 
+
 protected:
 	// Internal callbacks for the delegates
 	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
@@ -36,16 +41,17 @@ protected:
 
 private:
 	IOnlineSessionPtr SessionInterface;
+	TSharedPtr<FOnlineSessionSettings> LastSessionSettings;
 
 	// To add to the Online Session Interface delegate list.
 	FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
-	FDelegateHandle CreateSessionCompleteDelegateHanble;
+	FDelegateHandle CreateSessionCompleteDelegateHandle;
 	FOnFindSessionsCompleteDelegate FindSessionsCompleteDelegate;
-	FDelegateHandle FindSessionsCompleteDelegateHanble;
+	FDelegateHandle FindSessionsCompleteDelegateHandle;
 	FOnJoinSessionCompleteDelegate JoinSessionCompleteDelegate;
-	FDelegateHandle JoinSessionCompleteDelegateHanble;
+	FDelegateHandle JoinSessionCompleteDelegateHandle;
 	FOnDestroySessionCompleteDelegate DestroySessionCompleteDelegate;
-	FDelegateHandle DestroySessionCompleteDelegateHanble;
+	FDelegateHandle DestroySessionCompleteDelegateHandle;
 	FOnStartSessionCompleteDelegate StartSessionCompleteDelegate;
-	FDelegateHandle StartSessionCompleteDelegateHanble;
+	FDelegateHandle StartSessionCompleteDelegateHandle;
 };
